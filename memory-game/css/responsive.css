@@ -1,0 +1,77 @@
+@media screen and (min-width: 300px) and (max-width: 425px) {
+	html {
+		width: 320px;
+		min-height: 600px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	header {
+		font-size: .75em;
+	}
+
+	.game_display {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.stat_display {
+		width: 280px;
+		margin-bottom: 10px;
+		padding: 5px;
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		height: 150px;
+		margin: auto;
+	}
+
+	#timer {
+		width: 250px;
+		height: 50px;
+	}
+	.stars_moves {
+		width: 250px;
+		height: 50px;
+	}
+
+	.stars {
+		width: 125px;
+		margin:0px;
+		height: 50px;
+	}
+	 #moves {
+	 	width: 125px;
+	 	height: 50px;
+	 }
+	#refresh {
+		width: 250px;
+		height: 50px;
+	}
+
+	#deck {
+		width: 300px;
+		min-height: 400px;
+		padding: 3px;
+		margin: 10px;
+
+	}
+
+	.card {
+		width: 70px;
+		height: 50px;
+		font-size: 1em;
+	}
+
+	.pop_up_modal {
+		width: 300px;
+	}
+
+	.stats {
+		width: 300px;
+	}
+
+	#winning_message {
+		font-size: .75em;
+	}
+
+};

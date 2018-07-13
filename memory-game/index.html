@@ -1,0 +1,63 @@
+<!DOCTYPE html> 
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Memory Game</title>
+		<link rel="stylesheet" href="css/app.css">
+		<link rel="stylesheet" href="css/responsive.css">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans|Pacifico" rel="stylesheet">
+	</head>
+	<body>
+		<div class="game_display">
+			<header> <h1> Matching Game </h1> </header> 
+			<div class="stat_display">
+				<div class="stars_moves"> 
+					<div class="stars">
+						<!--&#9734;-->
+						<span id="1st_star"> &#9733;</span>
+						<span id="2nd_star"> &#9733;</span>
+						<span id="3rd_star">&#9733;</span>
+					</div>
+					<div id="moves"> 0 Moves </div>
+				</div>
+				<div id="timer"> Time: 0:00 seconds</div>
+				<div class="buttons" id="refresh">&#x21bb;</div>
+			</div>
+			<ul id="deck">
+				<li class="card" id="cloud">Cloud</li>
+				<li class="card" id="cloud">Cloud</li>
+				<li class="card" id="umbrella">Umbrella</li>
+				<li class="card" id="umbrella">Umbrella</li>
+				<li class="card" id="yinyang">Yin-Yang</li>
+				<li class="card" id="yinyang">Yin-Yang</li>
+				<li class="card" id="moon">Moon</li>
+				<li class="card" id="moon">Moon</li>
+				<li class="card" id="club">Club</li>
+				<li class="card" id="club">Club</li>
+				<li class="card" id="eighth">Eighth</li>
+				<li class="card" id="eighth">Eighth</li>
+				<li class="card" id="airplane">Airplane</li>
+				<li class="card" id="airplane">Airplane</li>
+				<li class="card" id="omega">Omega</li>
+				<li class="card" id="omega">Omega</li>
+			</ul>
+		</div>
+		<div class="winning_screen">
+			<div class="pop_up_modal">
+				<div id="winning_message"> You won!</div>
+				<div class=stats> 
+					<div id="stats_title"> Stats </div>
+					<div class="numbers">
+						<div id="stats_time"></div>
+						<div id="stats_moves"></div>
+						<div id="stats_stars"></div>
+					</div>
+				</div>
+				<div id="play_again"> Play Again?</div>
+		</div>
+		<script type="text/javascript" src="js/main.js"></script>
+	</body>
+</html>
