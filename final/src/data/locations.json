@@ -1,0 +1,41 @@
+[
+{"name": "Brazil Cafe" , 
+"street": "1960 University Ave", 
+"city": "Berkeley",
+"state": "California" , 
+"zip": "94704" , 
+"pos": {"lat": 37.8715926, "lng":  -122.272747}
+}
+,
+{"name": "Lush Gelato" , 
+"street": "1551 Shattuck Ave", 
+"city": "Berkeley",
+"state": "California" , 
+"zip": "94704" , 
+"pos": {"lat": 37.8798, "lng":  -122.2689}
+}
+,
+{"name": "Seasons of Japan" , 
+"street": "1209, 2122 Shattuck Ave", 
+"city": "Berkeley",
+"state": "California" , 
+"zip": "94704" , 
+"pos": {"lat": 37.8705, "lng":  -122.2684}
+}
+,
+{"name": "Philz Coffee" , 
+"street": "1600 Shattuck Ave", 
+"city": "Berkeley",
+"state": "California" , 
+"zip": "94709" , 
+"pos": {"lat": 37.8780, "lng":  -122.2693}
+}
+,
+{"name": "Café Mezzo" , 
+"street": "2442 Telegraph Ave", 
+"city": "Berkeley",
+"state": "California" , 
+"zip": "94704" , 
+"pos": {"lat": 37.8662, "lng":  -122.2588}
+}
+]
