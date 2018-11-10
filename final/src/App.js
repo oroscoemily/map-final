@@ -7,9 +7,9 @@ class App extends Component {
 
   state={
     //default map settings
-    lat:37.871593, 
-    lng:-122.2681,
-    zoom: 13,
+    lat:37.9432, 
+    lng: 122.1405,
+    zoom: 10,
     all: locations,
   }
   render() {
