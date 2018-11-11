@@ -6,7 +6,7 @@ const APIKey = 'AIzaSyCc-MeZHcqtRL8xVr-E9m338YHbPwF9sS0'
 class MapDisplayer extends Component{
 	state={
 		map: null,
-		markers: [],
+		markers:[],
 		markerProperties:[], 
 		activeMarker: null, 
 		activeMarkerProperties: [],
@@ -18,7 +18,6 @@ class MapDisplayer extends Component{
 	renderMap = (props, map)=>{
 		this.setState({map})
 		this.updateMarkers(this.props.locations)
-		console.log(this.props.locations)
 	}
 
 	updateMarkers = locations => {
@@ -40,22 +39,38 @@ class MapDisplayer extends Component{
 				key: index, 
 				//add an index
 				index, 
+				 
 				//set the name of the restaurant for each marker
 				name: location.name,
 				//set the position of each restaurant for each marker
-				position: location.position, 
+				position: location.pos, 
 			}
 			//add the marker properties to the main markerProperties
 			markerProperties.push(markerProps)
 
 			//create a new marker for each marker using API
-			let marker = new this.props.google.Marker({
-				position: location.position, 
-				map: this.state.map, 
+			let marker = new this.props.google.maps.Marker({
+				position: location.pos, 
+				map: this.state.map 
+			});
+			marker.addEventListener('click', () => {
+				this.onMarkerClick(markerProps, marker, null)
 			})
 			return marker
 		})
 		this.setState({markers, markerProperties})
+	}
+	//create a function to close the infoWindows when re-rendering markers and when clicking on markers
+	closeInfoWindow = () => {
+		this.state.activeMarker && this
+			.state
+			.activeMarker(null)
+		this.setState({displayInfoWindow:false,activeMarker:null,activeMarkerProps: null})
+	};
+
+	onMarkerClick = (properties, marker, e){
+		this.closeInfoWindow();
+		this.setState({showingInfoWindow:true, activeMarker: marker, activeMarkerProps: props})
 	}
 
 	
@@ -64,16 +79,13 @@ class MapDisplayer extends Component{
 
 	const lat= this.props.lat
 	const lng = this.props.lng
-
 	const activeMarkerProps = this.state.activeMarkerProperties;
-	
 
 	return (
-		
 		<div>
 		<div className='map'>
 		<Map 
-			renderMap={this.renderMap}
+			onReady={this.renderMap}
 			initalCenter = {{lat: lat, lng: lng}}
 			zoom = {this.props.zoom}
 			google={this.props.google}
@@ -83,6 +95,7 @@ class MapDisplayer extends Component{
 				margin: 'auto'
 			}}
 			onClick={this.closeInfoWindow}>
+
 			<InfoWindow
 				marker = {this.state.activeMarker}>
 				<div>
