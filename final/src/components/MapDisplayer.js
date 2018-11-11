@@ -53,7 +53,7 @@ class MapDisplayer extends Component{
 				position: location.pos, 
 				map: this.state.map 
 			});
-			marker.addEventListener('click', () => {
+			marker.addListener('click', () => {
 				this.onMarkerClick(markerProps, marker, null)
 			})
 			return marker
@@ -63,14 +63,15 @@ class MapDisplayer extends Component{
 	//create a function to close the infoWindows when re-rendering markers and when clicking on markers
 	closeInfoWindow = () => {
 		this.state.activeMarker && this
-			.state
-			.activeMarker(null)
+		.state
+		.activeMarker
+		.setAnimation(null)
 		this.setState({displayInfoWindow:false,activeMarker:null,activeMarkerProps: null})
 	};
 
-	onMarkerClick = (properties, marker, e){
+	onMarkerClick = (properties, marker, e) => {
 		this.closeInfoWindow();
-		this.setState({showingInfoWindow:true, activeMarker: marker, activeMarkerProps: props})
+		this.setState({displayInfoWindow:true, activeMarker: marker, activeMarkerProps: properties})
 	}
 
 	
@@ -97,9 +98,12 @@ class MapDisplayer extends Component{
 			onClick={this.closeInfoWindow}>
 
 			<InfoWindow
-				marker = {this.state.activeMarker}>
+				marker = {this.state.activeMarker}
+				visible = {this.state.displayInfoWindow}
+				onClose = {this.closeInfoWindow}
+			>
 				<div>
-					{activeMarkerProps.name}
+					<h2>{activeMarkerProps.name} </h2>
 				</div>
 			</InfoWindow>
 			</Map>
