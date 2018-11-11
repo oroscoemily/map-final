@@ -9,7 +9,7 @@ class MapDisplayer extends Component{
 		markers:[],
 		markerProperties:[], 
 		activeMarker: null, 
-		activeMarkerProperties: [],
+		activeMarkerProps: [],
 		displayInfoWindow: null
 	}
 	componentDidMount(){
@@ -51,7 +51,8 @@ class MapDisplayer extends Component{
 			//create a new marker for each marker using API
 			let marker = new this.props.google.maps.Marker({
 				position: location.pos, 
-				map: this.state.map 
+				map: this.state.map, 
+				animation: 4, 
 			});
 			marker.addListener('click', () => {
 				this.onMarkerClick(markerProps, marker, null)
@@ -69,9 +70,11 @@ class MapDisplayer extends Component{
 		this.setState({displayInfoWindow:false,activeMarker:null,activeMarkerProps: null})
 	};
 
-	onMarkerClick = (properties, marker, e) => {
+	onMarkerClick = (props, marker, e) => {
 		this.closeInfoWindow();
-		this.setState({displayInfoWindow:true, activeMarker: marker, activeMarkerProps: properties})
+
+
+		this.setState({displayInfoWindow:true, activeMarker: marker, activeMarkerProps: props})
 	}
 
 	
@@ -80,7 +83,8 @@ class MapDisplayer extends Component{
 
 	const lat= this.props.lat
 	const lng = this.props.lng
-	const activeMarkerProps = this.state.activeMarkerProperties;
+	console.log(this.state.activeMarkerProps)
+	const aMarkerProps = this.state.activeMarkerProps;
 
 	return (
 		<div>
@@ -103,7 +107,7 @@ class MapDisplayer extends Component{
 				onClose = {this.closeInfoWindow}
 			>
 				<div>
-					<h2>{activeMarkerProps.name} </h2>
+					<h2>{aMarkerProps && aMarkerProps.name}</h2>
 				</div>
 			</InfoWindow>
 			</Map>
