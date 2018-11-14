@@ -1,7 +1,11 @@
 import React, { Component }from 'react';
 import {Map,InfoWindow, GoogleApiWrapper} from 'google-maps-react'
+import LoadingContainer from './LoadingContainer.js'
 
 const APIKey = 'AIzaSyCc-MeZHcqtRL8xVr-E9m338YHbPwF9sS0'
+const CLIENTID = 'RNGYJKTVJJI31HQTRNSJEYXTRXNVYZF1YENZSYGFK1DI1NWS'
+const CLIENTSECRET = '1EHMLCXQEMKOA2WSHUW4SUDS0RX4NJI5PGXH4VAQQTORU25J'
+const VERSION = '20181110'
 
 class MapDisplayer extends Component{
 	state={
@@ -10,9 +14,31 @@ class MapDisplayer extends Component{
 		markerProperties:[], 
 		activeMarker: null, 
 		activeMarkerProps: [],
-		displayInfoWindow: null
+		displayInfoWindow: null,
 	}
 	componentDidMount(){
+	}
+
+	componentWillReceiveProps = (props) => {
+		if (this.state.markers.length !== props.locations.length){
+			console.log("hello! I work")
+			this.closeInfoWindow();
+			this.updateMarkers(props.locations);
+			this.setState({activeMarker:null})
+			return;
+		}
+		if (!props.selectedIndex){
+			this.closeInfoWindow();
+		}
+		if (this.state.activeMarker && (this.state.markers[props.selectedIndex] !== this.state.activeMarker.index)){
+			this.closeInfoWindow();
+		}
+
+		if (this.props.selectedIndex == null){
+			return;
+		}
+
+		this.onMarkerClick(this.state.markerProperties[props.selectedIndex], this.state.markers[props.selectedIndex])
 	}
 
 	renderMap = (props, map)=>{
@@ -70,10 +96,33 @@ class MapDisplayer extends Component{
 		this.setState({displayInfoWindow:false,activeMarker:null,activeMarkerProps: null})
 	};
 
+
 	onMarkerClick = (props, marker, e) => {
 		this.closeInfoWindow();
 
+		let url = `https://api.foursquare.com/v2/venues/search?client_id=${CLIENTID}&client_secret=${CLIENTSECRET}&near=37.9432,-122&query=${props.name}&v=${VERSION}`
+		let headers = new Headers();
+		let request = new Request(url, {
+			method: 'GET', headers
+		});
 
+		let amProps;
+		fetch(request)
+			.then(response => response.json())
+				.then(result => {
+					amProps = {
+						...props, foursquare:result.response.venues[0]
+					};
+
+					if(amProps.foursquare){
+						amProps = {
+							...props, 
+							address: amProps.foursquare.location.address, 
+							food:amProps.foursquare.categories[0].shortName 
+						}
+						this.setState({displayInfoWindow:true, activeMarker: marker, activeMarkerProps: amProps})
+					}
+				})
 		this.setState({displayInfoWindow:true, activeMarker: marker, activeMarkerProps: props})
 	}
 
@@ -83,7 +132,6 @@ class MapDisplayer extends Component{
 
 	const lat= this.props.lat
 	const lng = this.props.lng
-	console.log(this.state.activeMarkerProps)
 	const aMarkerProps = this.state.activeMarkerProps;
 
 	return (
@@ -95,8 +143,8 @@ class MapDisplayer extends Component{
 			zoom = {this.props.zoom}
 			google={this.props.google}
 			style = {{
-				height: ' 90%', 
-				width: '90%',
+				height: '90%', 
+				width: '100%',
 				margin: 'auto'
 			}}
 			onClick={this.closeInfoWindow}>
@@ -107,7 +155,11 @@ class MapDisplayer extends Component{
 				onClose = {this.closeInfoWindow}
 			>
 				<div>
-					<h2>{aMarkerProps && aMarkerProps.name}</h2>
+					<h3>{aMarkerProps && aMarkerProps.name}</h3>
+					<h4> {aMarkerProps && aMarkerProps.food}</h4>
+					<div> {aMarkerProps && aMarkerProps.address}</div>
+					
+					<div> Courtesy of Foursquare</div>
 				</div>
 			</InfoWindow>
 			</Map>
@@ -116,11 +168,4 @@ class MapDisplayer extends Component{
 	)
 	}
 }
-export default GoogleApiWrapper({apiKey: APIKey})(MapDisplayer)
-
-
-
-
-
-
-
+export default GoogleApiWrapper({apiKey: APIKey, LoadingContainer: LoadingContainer})(MapDisplayer)

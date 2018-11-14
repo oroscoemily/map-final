@@ -23,7 +23,7 @@
 "pos": {"lat": 37.8705, "lng":  -122.2684}
 }
 ,
-{"name": "Philz Coffee" , 
+{"name": "Philz Coffee Shattuck" , 
 "street": "1600 Shattuck Ave", 
 "city": "Berkeley",
 "state": "California" , 
@@ -31,7 +31,7 @@
 "pos": {"lat": 37.8780, "lng":  -122.2693}
 }
 ,
-{"name": "Café Mezzo" , 
+{"name": "Mezzo" , 
 "street": "2442 Telegraph Ave", 
 "city": "Berkeley",
 "state": "California" , 
