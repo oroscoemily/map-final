@@ -8,11 +8,11 @@ class App extends Component {
 
   state={
     //default map settings
-    lat:37.9432, 
-    lng: 122.1405,
-    zoom: 10,
+    lat:34.0522, 
+    lng: 122.2727,
+    zoom: 13,
     all: locations,
-    open: true,
+    open: false,
     search: '',
     selectedIndex:null
   }
@@ -73,13 +73,13 @@ class App extends Component {
   render() {
     return (
       <div className="App" role="application" aria-label="map">
-        <div className = 'header'>
+        <header className = 'header'>
           <button onClick={this.toggleList} style={this.styles.burgerMenu}>
             <i className = 'fa fa-bars'>
           </i>
           </button>
           <div style={this.styles.titleMenu}> Berkeley Neighborhood App </div> 
-        </div> 
+        </header> 
         
         <div> 
         <MapDisplayer 

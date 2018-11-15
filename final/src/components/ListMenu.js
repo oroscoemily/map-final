@@ -25,25 +25,21 @@ class ListMenu extends Component{
 		},
 
 		item:{
-			height:'75px',
-			width: '200px',
 			listStyle:'none', 
 			marginTop: '10px',
 			marginLeft:'auto',
 			marginRight:'auto',
-			top:'10px',
-			border:'1px solid grey',
-
 
 		},
 
 		itemButton:{
+			height:'75px',
+			width: '100%',
 			fontSize:'1em',
 			verticalAlign:'center',
 			textAlign: 'left',
 			marginTop:'auto',
 			marginBottom:'auto'
-
 		}
 	}
 
@@ -75,7 +71,7 @@ class ListMenu extends Component{
 						.map((location, index) => {
 							return(
 								<li style = {this.styles.item} key={index}>
-									<button style = {this.styles.itemButton} key={index} onClick = {(evt) => {this.props.clickItem(index)}}> 
+									<button style = {this.styles.itemButton} key={index} tab-index={index} onClick = {(evt) => {this.props.clickItem(index)}}> 
 									<div style = {{color:'teal'}}>{location.name}</div>
 									<div>{location.street}</div>
 									</button>

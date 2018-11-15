@@ -1,5 +1,5 @@
 import React, { Component }from 'react';
-import {Map,InfoWindow, GoogleApiWrapper} from 'google-maps-react'
+import {Map, GoogleApiWrapper, InfoWindow} from 'google-maps-react'
 import LoadingContainer from './LoadingContainer.js'
 
 const APIKey = 'AIzaSyCc-MeZHcqtRL8xVr-E9m338YHbPwF9sS0'
@@ -107,7 +107,7 @@ class MapDisplayer extends Component{
 		});
 
 		let amProps;
-		fetch(request)
+		try{fetch(request)
 			.then(response => response.json())
 				.then(result => {
 					amProps = {
@@ -123,7 +123,11 @@ class MapDisplayer extends Component{
 						this.setState({displayInfoWindow:true, activeMarker: marker, activeMarkerProps: amProps})
 					}
 				})
-		this.setState({displayInfoWindow:true, activeMarker: marker, activeMarkerProps: props})
+		this.setState({displayInfoWindow:true, activeMarker: marker, activeMarkerProps: props})}
+
+		catch(error){
+			alert("Unable to fetch information")
+		}
 	}
 
 	
@@ -132,6 +136,7 @@ class MapDisplayer extends Component{
 
 	const lat= this.props.lat
 	const lng = this.props.lng
+	const center = {lat:lat, lng:lng}
 	const aMarkerProps = this.state.activeMarkerProps;
 
 	return (
@@ -139,7 +144,7 @@ class MapDisplayer extends Component{
 		<div className='map'>
 		<Map 
 			onReady={this.renderMap}
-			initalCenter = {{lat: lat, lng: lng}}
+			initalCenter = {{lat: 38, lng: 122}}
 			zoom = {this.props.zoom}
 			google={this.props.google}
 			style = {{
